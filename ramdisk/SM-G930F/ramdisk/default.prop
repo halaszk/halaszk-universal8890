@@ -34,6 +34,6 @@ security.mdpp.mass=false
 #
 # BOOTIMAGE_BUILD_PROPERTIES
 #
-ro.bootimage.build.date=Wed Jun 1 18:22:55 KST 2016
-ro.bootimage.build.date.utc=1464772975
-ro.bootimage.build.fingerprint=samsung/heroltexx/herolte:6.0.1/MMB29K/G930FXXU1APF2:user/test-keys
+ro.bootimage.build.date=Thu Jun 23 19:21:46 KST 2016
+ro.bootimage.build.date.utc=1466677306
+ro.bootimage.build.fingerprint=samsung/heroltexx/herolte:6.0.1/MMB29K/G930FXXU1APFG:user/test-keys
