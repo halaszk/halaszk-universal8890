@@ -141,8 +141,8 @@ gps_zone)
   var_gps="/system/etc/gps.conf";
 
 # Backup original gps.conf in case of user revert.
-  if [ ! -e $var_gps.bkp ]; then
-	cp -a $var_gps $var_gps.bkp;
+  if [ ! -e $var_gps.bak ]; then
+	cp -a $var_gps $var_gps.bak;
   fi;
 
   if [ ! -z "$2" ]; then
@@ -150,7 +150,7 @@ gps_zone)
 			echo 0 > $P
   elif [ "$2" == Original ]; then
 			echo 1 > $P
-		cp -a $var_gps.bkp $var_gps;
+		cp -a $var_gps.bak $var_gps;
   elif [ "$2" == Asia ]; then
 		CHECKGPS=`cat $var_gps | grep "NTP_SERVER=0.asia.pool.ntp.org"`;
 		if [ "$CHECKGPS" != "NTP_SERVER=0.asia.pool.ntp.org" ]; then
