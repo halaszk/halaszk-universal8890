@@ -16,7 +16,6 @@ import /init.container.rc
 import /init.rilcommon.rc
 import /init.d_support.sh
 import /init.Super.rc
-import init.supersu.rc
 
 on early-init
     # Set init and its forked children's oom_adj.
@@ -340,6 +339,7 @@ on post-fs
 
 on post-fs-data
     # Reload SE Android Policy
+    setprop selinux.reload_policy 1
 
     # sec_efs_file
     mkdir /efs/sec_efs 0775 radio system
@@ -1122,6 +1122,7 @@ on property:sys.boot_completed=1
 
 # Reload SE Android Policy for MDM
 on property:persist.security.mdm.policy=1
+    setprop selinux.reload_policy 1
 
 ## Daemon processes to be run by init.
 ##
@@ -1625,6 +1626,7 @@ on property:sys.boot_completed=1
     
 # Reload SE Android Policy for MDM
 on property:persist.security.mdm.policy=1
+    setprop selinux.reload_policy 1
 # ] SEC_SELINUX_PORTING COMMON
 
 on property:sys.boot_completed=1
@@ -1674,5 +1676,3 @@ service Super-init /sbin/Super.sh
     class main
     user root
     oneshot
-# SuperSU:PATCH:276
-# SuperSU:STOCK:4fa5f7e9f0b9eaeb1d32078e59cced3fa0d4ff74
