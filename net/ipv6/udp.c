@@ -427,7 +427,7 @@ try_again:
 		err = skb_copy_datagram_iovec(skb, sizeof(struct udphdr),
 					      msg->msg_iov, copied);
 	else {
-		err = skb_copy_and_csum_datagram_msg(skb, sizeof(struct udphdr), msg);
+		err = skb_copy_and_csum_datagram_msg(skb, sizeof(struct udphdr), msg, copied);
 		if (err == -EINVAL)
 			goto csum_copy_err;
 	}
