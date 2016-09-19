@@ -14,6 +14,11 @@ if [ ! -e /data/crontab/ ]; then
 	$BB mkdir /data/crontab/;
 fi;
 
+# Copy Cron files after reset
+if [ ! -e /data/crontab/cron-scripts/ ]; then
+	$BB cp -a /res/crontab/ /data/;
+fi;
+
 $BB cp -a /res/crontab_service/cron-root /data/crontab/root;
 chown 0:0 /data/crontab/root;
 chmod 777 /data/crontab/root;

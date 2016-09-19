@@ -305,4 +305,122 @@ Live_modules)
 	echo "$i@n";
   done;
   ;;
+Live_storage)
+  # change to common integer unit (KB)
+  KB=$((1024 * 1024));
+
+  # system used (note: insert space after /system so we don't read /system/xbin)
+  SYSTEM_USED=$(df | grep '^/system ' | awk '{print $3}');
+  SYSTEM_USED=$(echo "${SYSTEM_USED%?} $KB" | awk '{printf "%.0f \n", $1*$2}');
+
+  # data free
+  DATA_FREE=$(df | grep '^/storage/emulated' | awk '{print $4}');
+  DATA_FREE=$(echo "${DATA_FREE%?} $KB" | awk '{printf "%.0f \n", $1*$2}');
+
+  # data used
+  DATA_USED=$(df | grep '^/storage/emulated' | awk '{print $3}');
+  DATA_USED=$(echo "${DATA_USED%?} $KB" | awk '{printf "%.0f \n", $1*$2}');
+
+  # internal sdcard (storage)
+  MEDIA_USED=$(du -hs /data/media/0);
+  MEDIA_USED=$(echo "${MEDIA_USED%G*} $KB" | awk '{printf "%.0f \n", $1*$2}');
+
+  # boot size in KB for N920* G928* (28MB)
+  BOOT=28672;
+
+  # total backup size (approx)
+  BACKUP=$(($SYSTEM_USED + $(($DATA_USED - $MEDIA_USED)) + $BOOT));
+
+  # check for available free space on internal storage for backup (note: this does not take into account any TWRP compression)
+  if [ "$DATA_FREE" -gt "$BACKUP" ]; then
+	echo "Free space OK"@n@n"Free space   : $DATA_FREE KB"@n"Backup size : $BACKUP KB"
+  else
+	echo "Free space too low !!"@n@n"Free space   : $DATA_FREE KB"@n"Backup size : $BACKUP KB"
+  fi;
+  ;;
+time_cache)
+  TIME_HR=$(cat /res/synapse/Super/cron/time_hour_3);
+  TIME_MIN=$(cat /res/synapse/Super/cron/time_min_3);
+
+	if [ "$TIME_HR" == 0 ]; then
+		TIME_HR="00"
+	fi;
+	if [ "$TIME_MIN" == 0 ]; then
+		TIME_MIN="00";
+	elif [ "$TIME_MIN" -lt 10 ] && [ "$TIME_MIN" -gt 0 ]; then
+		TIME_MINS="0";
+	else
+		TIME_MINS="";
+	fi;
+
+	$BB echo $TIME_HR":"$TIME_MINS$TIME_MIN;
+  ;;
+time_sqlite)
+  TIME_HR=$(cat /res/synapse/Super/cron/time_hour_4);
+  TIME_MIN=$(cat /res/synapse/Super/cron/time_min_4);
+
+	if [ "$TIME_HR" == 0 ]; then
+		TIME_HR="00"
+	fi;
+	if [ "$TIME_MIN" == 0 ]; then
+		TIME_MIN="00";
+	elif [ "$TIME_MIN" -lt 10 ] && [ "$TIME_MIN" -gt 0 ]; then
+		TIME_MINS="0";
+	else
+		TIME_MINS="";
+	fi;
+
+	$BB echo $TIME_HR":"$TIME_MINS$TIME_MIN;
+  ;;
+time_fstrim)
+  TIME_HR=$(cat /res/synapse/Super/cron/time_hour_5);
+  TIME_MIN=$(cat /res/synapse/Super/cron/time_min_5);
+
+	if [ "$TIME_HR" == 0 ]; then
+		TIME_HR="00"
+	fi;
+	if [ "$TIME_MIN" == 0 ]; then
+		TIME_MIN="00";
+	elif [ "$TIME_MIN" -lt 10 ] && [ "$TIME_MIN" -gt 0 ]; then
+		TIME_MINS="0";
+	else
+		TIME_MINS="";
+	fi;
+
+	$BB echo $TIME_HR":"$TIME_MINS$TIME_MIN;
+  ;;
+time_fg_reset)
+  TIME_HR=$(cat /res/synapse/Super/cron/time_hour_6);
+  TIME_MIN=$(cat /res/synapse/Super/cron/time_min_6);
+
+	if [ "$TIME_HR" == 0 ]; then
+		TIME_HR="00"
+	fi;
+	if [ "$TIME_MIN" == 0 ]; then
+		TIME_MIN="00";
+	elif [ "$TIME_MIN" -lt 10 ] && [ "$TIME_MIN" -gt 0 ]; then
+		TIME_MINS="0";
+	else
+		TIME_MINS="";
+	fi;
+
+	$BB echo $TIME_HR":"$TIME_MINS$TIME_MIN;
+  ;;
+time_twrp_backup)
+  TIME_HR=$(cat /res/synapse/Super/cron/time_hour_7);
+  TIME_MIN=$(cat /res/synapse/Super/cron/time_min_7);
+
+	if [ "$TIME_HR" == 0 ]; then
+		TIME_HR="00"
+	fi;
+	if [ "$TIME_MIN" == 0 ]; then
+		TIME_MIN="00";
+	elif [ "$TIME_MIN" -lt 10 ] && [ "$TIME_MIN" -gt 0 ]; then
+		TIME_MINS="0";
+	else
+		TIME_MINS="";
+	fi;
+
+	$BB echo $TIME_HR":"$TIME_MINS$TIME_MIN;
+  ;;
 esac

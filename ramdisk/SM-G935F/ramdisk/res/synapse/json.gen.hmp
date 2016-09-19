@@ -1,5 +1,7 @@
 #!/system/bin/sh
 
+BB=/system/xbin/busybox;
+
 cat << CTAG
 {
     name:MULTICORE HMP,
@@ -78,6 +80,40 @@ cat << CTAG
 	{ SSpacer:{
 		height:1
 	}},
+        { SPane:{
+                title:"Power Aware Scheduling",
+                description:"Power aware scheduling is a CPU capacity managing 'power scheduler' which lives by the side of the existing process scheduler. Its role is to monitor the system load and decide which CPUs that should be available to the process scheduler. It will basically attempt to “pack” small tasks into the “leftmost” CPU cores (ie. starting cpu0) to keep the other CPU cores as idle as possible, instead of spreading them evenly across all online cores. Theoretically this should increase power efficiency, with a very small cost to performance."
+        }},
+	{ SSpacer:{
+		height:1
+	}},
+	{ SOptionList:{
+		title:"Enable Power Aware Scheduling",
+		description:"'Auto' will enable Power Aware Scheduling when the screen is OFF (if not in-call) & auto disable when the screen is ON. Enable only if Hotplug & Interactive Turbo Modes are disabled ! 'Auto' requires CortexBrain ENABLED !\n",
+		default:$(echo "$(/res/synapse/actions/cortex cortexbrain_power_aware_sched)"),
+		action:"cortex cortexbrain_power_aware_sched",
+		values:[Disabled, Enabled, Auto,]
+	}},
+	{ SSpacer:{
+		height:1
+	}},
+        { SPane:{
+                title:"HMP LITTLE Packing",
+                description:"Allows the HMP Scheduler to pack small tasks into CPUs in the smallest HMP domain. Power savings at a slight cost to performance."
+        }},
+	{ SSpacer:{
+		height:1
+	}},
+	{ SOptionList:{
+		title:"Enable HMP LITTLE Packing",
+		description:"'Auto' will enable HMP LITTLE Packing when the screen is OFF (if not in-call) & auto disable when the screen is ON. Enable only if Hotplug & Interactive Turbo Modes are disabled ! 'Auto' requires CortexBrain ENABLED !\n",
+		default:$(echo "$(/res/synapse/actions/cortex cortexbrain_hmp_little_pack)"),
+		action:"cortex cortexbrain_hmp_little_pack",
+		values:[Disabled, Enabled, Auto,]
+	}},
+	{ SSpacer:{
+		height:1
+	}},
 	{ SPane:{
 		title:"PEWQ (Power-Efficient Workqueues)",
 		description:"Enable or disable PEWQ will help to reduce power consumption at the cost of slight performance overhead. By enabling this, PEWQ are used for unbound scheduled work to save load on sibling CPU cores and queuing work on CPU 0."
@@ -87,12 +123,10 @@ cat << CTAG
 	}},
 	{ SOptionList:{
 		title:"Enable PEWQ",
-		description:" ",
-		default:Y,
-		action:"generic /sys/module/workqueue/parameters/power_efficient",
-		values:{
-			N:"Disabled", Y:"Enabled"
-		}
+		description:"'Auto' will enable PEWQ when the screen is OFF (if not in-call) & auto disable when the screen is ON. Enable only if Hotplug & Interactive Turbo Modes are disabled ! 'Auto' requires CortexBrain ENABLED !\n",
+		default:$(echo "$(/res/synapse/actions/cortex cortexbrain_pewq)"),
+		action:"cortex cortexbrain_pewq",
+		values:[Disabled, Enabled, Auto,]
 	}},
 	{ SSpacer:{
 		height:1

@@ -230,6 +230,27 @@ SystemUpdateService)
     echo Disabled
   fi
   ;;
+  efs_backup)
+	if [ ! -d /data/media/0/Super/Synapse/EFS ]; then
+		$BB mkdir -p /data/media/0/Super/Synapse/EFS
+	fi;
+	if [ -e /data/media/0/Super/Synapse/EFS/efs_backup.img ]; then
+		$BB rm -rf /data/media/0/Super/Synapse/EFS/efs_backup.img;
+		$BB dd if=dev/block/platform/155a0000.ufs/by-name/EFS of=/data/media/0/Super/Synapse/EFS/efs_backup.img 2> /dev/null;
+		$BB echo "efs_backup.img saved to /data/media/0/Super/Synapse/EFS folder";
+	else
+		$BB dd if=dev/block/platform/155a0000.ufs/by-name/EFS of=/data/media/0/Super/Synapse/EFS/efs_backup.img 2> /dev/null;
+		$BB echo "efs_backup.img saved to /data/media/0/Super/Synapse/EFS folder";
+	fi;
+  ;;
+  efs_restore)
+	if [ -e /data/media/0/Super/Synapse/EFS/efs_backup.img ]; then
+		$BB dd if=/data/media/0/Super/Synapse/EFS/efs_backup.img of=/dev/block/platform/155a0000.ufs/by-name/EFS 2> /dev/null;
+		$BB echo "efs_backup.img restored. Please REBOOT !";
+	else
+		$BB echo "efs_backup.img not found !";
+	fi;
+  ;;
 esac;
 
 $BB mount -t rootfs -o remount,ro rootfs;

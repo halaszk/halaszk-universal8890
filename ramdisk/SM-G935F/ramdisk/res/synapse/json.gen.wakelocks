@@ -40,7 +40,7 @@ cat << CTAG
 						title:"SensorHub",
 						description:"SensorHub Wakelock is one of the biggest wake sources. Disable for better deep sleep and less awake time. Enable for stock behavior.\n",
 						default:'$SH',
-						action:"generic sys/module/wakeup/parameters/enable_sensorhub_wl",
+						action:"generic /sys/module/wakeup/parameters/enable_sensorhub_wl",
 						values:{ Y:"Enabled", N:"Disabled"
 						}
 					}},'
@@ -58,7 +58,7 @@ cat << CTAG
 						max:3,
 						step:1,
 						default:'$SEN',
-						action:"generic sys/module/ssp_sensorhub/parameters/wl_sensorhub"
+						action:"generic /sys/module/ssp_sensorhub/parameters/wl_sensorhub"
 					}},'
 					$BB echo '{ SSpacer:{
 						height:1
@@ -70,7 +70,7 @@ cat << CTAG
 						title:"SSP",
 						description:"The SSP Wakelock is one of the biggest wake sources after Sensorhub. Disable for better deep sleep and less awake time. Enable for stock behavior.\n",
 						default:'$SSP',
-						action:"generic sys/module/wakeup/parameters/enable_ssp_wl",
+						action:"generic /sys/module/wakeup/parameters/enable_ssp_wl",
 						values:{ Y:"Enabled", N:"Disabled"
 						}
 					}},'
@@ -88,7 +88,7 @@ cat << CTAG
 						max:3,
 						step:1,
 						default:'$SSP',
-						action:"generic sys/module/ssp_iio/parameters/wl_ssp"
+						action:"generic /sys/module/ssp_iio/parameters/wl_ssp"
 					}},'
 					$BB echo '{ SSpacer:{
 						height:1
@@ -104,7 +104,7 @@ cat << CTAG
 						max:3,
 						step:1,
 						default:'$GRIP',
-						action:"generic sys/module/sx9310/parameters/wl_grip"
+						action:"generic /sys/module/sx9310/parameters/wl_grip"
 					}},'
 					$BB echo '{ SSpacer:{
 						height:1
@@ -120,7 +120,7 @@ cat << CTAG
 						max:3,
 						step:1,
 						default:'$MOTION',
-						action:"generic sys/module/ssp_input/parameters/wl_motion"
+						action:"generic /sys/module/ssp_input/parameters/wl_motion"
 					}},'
 					$BB echo '{ SSpacer:{
 						height:1
@@ -136,7 +136,7 @@ cat << CTAG
 						max:3,
 						step:1,
 						default:'$PICKUP',
-						action:"generic sys/module/ssp_input/parameters/wl_pickup"
+						action:"generic /sys/module/ssp_input/parameters/wl_pickup"
 					}},'
 					$BB echo '{ SSpacer:{
 						height:1
@@ -152,7 +152,7 @@ cat << CTAG
 						max:3,
 						step:1,
 						default:'$GRIP',
-						action:"generic sys/module/ssp_input/parameters/wl_grip"
+						action:"generic /sys/module/ssp_input/parameters/wl_grip"
 					}},'
 					$BB echo '{ SSpacer:{
 						height:1
@@ -168,7 +168,7 @@ cat << CTAG
 						max:3,
 						step:1,
 						default:'$TILT',
-						action:"generic sys/module/ssp_input/parameters/wl_tilt"
+						action:"generic /sys/module/ssp_input/parameters/wl_tilt"
 					}},'
 					$BB echo '{ SSpacer:{
 						height:1
@@ -184,7 +184,7 @@ cat << CTAG
 						max:3,
 						step:1,
 						default:'$PROX',
-						action:"generic sys/module/ssp_input/parameters/wl_prox"
+						action:"generic /sys/module/ssp_input/parameters/wl_prox"
 					}},'
 					$BB echo '{ SSpacer:{
 						height:1
@@ -202,7 +202,7 @@ cat << CTAG
 						title:"bcmdhd4359",
 						description:"The bcmdhd4359 Wakelock (GPS chip) is one of the biggest wake sources after Sensorhub & SSP. Disable for better deep sleep and less awake time. Enable for stock behavior.\n",
 						default:'$BCM',
-						action:"generic sys/module/wakeup/parameters/enable_bcmdhd4359_wl",
+						action:"generic /sys/module/wakeup/parameters/enable_bcmdhd4359_wl",
 						values:{ Y:"Enabled", N:"Disabled"
 						}
 					}},'
@@ -220,7 +220,7 @@ cat << CTAG
 						max:4,
 						step:1,
 						default:'$GPS',
-						action:"generic sys/module/bcm_gps_spi/parameters/wl_divide_gps"
+						action:"generic /sys/module/bcm_gps_spi/parameters/wl_divide_gps"
 					}},'
 					$BB echo '{ SSpacer:{
 						height:1
@@ -241,7 +241,7 @@ cat << CTAG
 						max:5,
 						step:1,
 						default:'$WIFI',
-						action:"generic sys/module/dhd/parameters/wl_divide"
+						action:"generic /sys/module/dhd/parameters/wl_divide"
 					}},'
 					$BB echo '{ SSpacer:{
 						height:1
@@ -261,7 +261,7 @@ cat << CTAG
 						max:5,
 						step:1,
 						default:'$BT',
-						action:"generic sys/module/bcm4359/parameters/wl_divide_bt"
+						action:"generic /sys/module/bcm4359/parameters/wl_divide_bt"
 					}},'
 					$BB echo '{ SSpacer:{
 						height:1
@@ -282,7 +282,7 @@ cat << CTAG
 						max:20,
 						step:1,
 						default:'$MAINS',
-						action:"generic sys/module/sec_battery/parameters/wl_polling"
+						action:"generic /sys/module/sec_battery/parameters/wl_polling"
 					}},'
 					$BB echo '{ SSpacer:{
 						height:1
@@ -298,7 +298,7 @@ cat << CTAG
 						max:3,
 						step:1,
 						default:'$MAINS',
-						action:"generic sys/module/max77833_charger/parameters/wl_mains"
+						action:"generic /sys/module/max77833_charger/parameters/wl_mains"
 					}},'
 					$BB echo '{ SSpacer:{
 						height:1
@@ -314,7 +314,7 @@ cat << CTAG
 						max:7,
 						step:1,
 						default:'$WL',
-						action:"generic sys/module/max77833_charger/parameters/wl_wireless"
+						action:"generic /sys/module/max77833_charger/parameters/wl_wireless"
 					}},'
 					$BB echo '{ SSpacer:{
 						height:1
@@ -335,7 +335,7 @@ cat << CTAG
 						max:5,
 						step:1,
 						default:'$HALL',
-						action:"generic sys/module/certify_hall/parameters/wl_hall"
+						action:"generic /sys/module/certify_hall/parameters/wl_hall"
 					}},'
 					$BB echo '{ SSpacer:{
 						height:1
@@ -356,7 +356,7 @@ cat << CTAG
 						max:5,
 						step:1,
 						default:'$NFC_SEC',
-						action:"generic sys/module/sec_nfc/parameters/wl_nfc"
+						action:"generic /sys/module/sec_nfc/parameters/wl_nfc"
 					}},'
 					$BB echo '{ SSpacer:{
 						height:1
@@ -372,7 +372,7 @@ cat << CTAG
 						max:2,
 						step:1,
 						default:'$NFC_PN',
-						action:"generic sys/module/pn547/parameters/wl_nfc"
+						action:"generic /sys/module/pn547/parameters/wl_nfc"
 					}},'
 					$BB echo '{ SSpacer:{
 						height:1
@@ -393,7 +393,7 @@ cat << CTAG
 						max:5000,
 						step:1000,
 						default:'$VWU',
-						action:"generic sys/module/snd_soc_noble_arizona/parameters/wl_arizona"
+						action:"generic /sys/module/snd_soc_noble_arizona/parameters/wl_arizona"
 					}},'
 					$BB echo '{ SSpacer:{
 						height:1
@@ -413,7 +413,7 @@ cat << CTAG
 						max:20,
 						step:1,
 						default:'$PEN',
-						action:"generic sys/module/wacom_i2c/parameters/wl_divide_pen"
+						action:"generic /sys/module/wacom_i2c/parameters/wl_divide_pen"
 					}},'
 					$BB echo '{ SSpacer:{
 						height:1
@@ -430,7 +430,7 @@ cat << CTAG
 						title:"lli_pm",
 						description:" ",
 						default:'$LLI_PM',
-						action:"generic sys/module/wakeup/parameters/enable_lli_pm_wl",
+						action:"generic /sys/module/wakeup/parameters/enable_lli_pm_wl",
 						values:{ Y:"Enabled", N:"Disabled"
 						}
 					}},'
@@ -444,7 +444,7 @@ cat << CTAG
 						title:"radio-interface",
 						description:" ",
 						default:'$RAD',
-						action:"generic sys/module/wakeup/parameters/enable_radio_interface_wl",
+						action:"generic /sys/module/wakeup/parameters/enable_radio_interface_wl",
 						values:{ Y:"Enabled", N:"Disabled"
 						}
 					}},'
@@ -458,7 +458,7 @@ cat << CTAG
 						title:"umts_ipc0",
 						description:" ",
 						default:'$UMTS',
-						action:"generic sys/module/wakeup/parameters/enable_umts_ipc0_wl",
+						action:"generic /sys/module/wakeup/parameters/enable_umts_ipc0_wl",
 						values:{ Y:"Enabled", N:"Disabled"
 						}
 					}},'
@@ -472,7 +472,7 @@ cat << CTAG
 						title:"PowerManagerService.WakeLocks",
 						description:" ",
 						default:'$PS',
-						action:"generic sys/module/wakeup/parameters/enable_power_manager_service_wl",
+						action:"generic /sys/module/wakeup/parameters/enable_power_manager_service_wl",
 						values:{ Y:"Enabled", N:"Disabled"
 						}
 					}},'

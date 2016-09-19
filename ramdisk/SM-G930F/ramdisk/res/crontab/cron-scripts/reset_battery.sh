@@ -14,7 +14,7 @@ elif [ -d "/sys/devices/battery.51" ]; then
 fi;
 
 BB=/system/xbin/busybox;
-FG_RESET=$(cat /res/synapse/Super/cron_fg);
+FG_RESET=$(cat /res/synapse/Super/fg_reset);
 
 if [ "$($BB mount | grep rootfs | cut -c 26-27 | grep -c ro)" -eq "1" ]; then
 	$BB mount -o remount,rw /;

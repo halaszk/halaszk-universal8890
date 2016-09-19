@@ -18,13 +18,6 @@ cat << CTAG
 		height:2
 	}},
 	{ SButton:{
-		label:"Save logcat",
-		action:"log logcat"
-	}},
-	{ SSpacer:{
-		height:2
-	}},
-	{ SButton:{
 		label:"Save dmesg",
 		action:"log dmesg"
 	}},

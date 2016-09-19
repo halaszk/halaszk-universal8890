@@ -46,22 +46,34 @@ hmp)
   fi
   ;;
 interactive_turbo)
-  P=/res/synapse/Super/tuning_interactive_turbo
+  P=/res/synapse/Super/tuning_interactive_turbo;
+
   CPU0=$(cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq);
   CPU4=$(cat /sys/devices/system/cpu/cpu4/cpufreq/cpuinfo_min_freq);
+
+  # Check State
+  HOTPLUG_STATE=$(cat /res/synapse/Super/hotplug);
+  POWER_AWARE_SCHED_STATE=$(cat /res/synapse/Super/cortexbrain_power_aware_sched);
+  HMP_LITTLE_PACK_STATE=$(cat /res/synapse/Super/cortexbrain_hmp_little_pack);
+  PEWQ_STATE=$(cat /res/synapse/Super/cortexbrain_pewq);
+
   if [ ! -z "$2" ]; then
   if [ "$2" == Disabled ]; then
-    echo 0 > $P
+	echo "0" > $P;
 	echo "0" > /sys/devices/system/cpu/cpu4/cpufreq/interactive/enforced_mode;
 	echo "0" > /sys/devices/system/cpu/cpu0/cpufreq/interactive/enforced_mode;
 	echo "$CPU0" > /sys/devices/system/cpu/cpu0/cpufreq/interactive/single_cluster0_min_freq;
 	echo "$CPU4" > /sys/devices/system/cpu/cpu4/cpufreq/interactive/single_cluster0_min_freq;
   elif [ "$2" == Enabled ]; then
-    echo 1 > $P
-	echo "$CPU0" > /sys/devices/system/cpu/cpu0/cpufreq/interactive/single_cluster0_min_freq;
-	echo "$CPU0" > /sys/devices/system/cpu/cpu4/cpufreq/interactive/single_cluster0_min_freq;
-	echo "1" > /sys/devices/system/cpu/cpu0/cpufreq/interactive/enforced_mode;
-	echo "1" > /sys/devices/system/cpu/cpu4/cpufreq/interactive/enforced_mode;
+	if [ "$HOTPLUG_STATE" == "0" ] && [ "$POWER_AWARE_SCHED_STATE" == "0" ] && [ "$HMP_LITTLE_PACK_STATE" == "0" ] && [ "$PEWQ_STATE" == "0" ]; then
+		echo "1" > $P;
+		echo "$CPU0" > /sys/devices/system/cpu/cpu0/cpufreq/interactive/single_cluster0_min_freq;
+		echo "$CPU0" > /sys/devices/system/cpu/cpu4/cpufreq/interactive/single_cluster0_min_freq;
+		echo "1" > /sys/devices/system/cpu/cpu0/cpufreq/interactive/enforced_mode;
+		echo "1" > /sys/devices/system/cpu/cpu4/cpufreq/interactive/enforced_mode;
+	else
+		echo "0" > $P;
+	fi;
   fi; fi
   copy=$(cat $P)
   if [ "$copy" == 0 ]; then
