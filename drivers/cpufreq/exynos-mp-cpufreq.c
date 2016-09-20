@@ -80,7 +80,7 @@
  * 2 = Max OC freqs enabled
  * 3 = Stock Freqs
  */
-static int autoasv = 3;
+static int autoasv = 1;
 module_param(autoasv, int, 0644);
 
 #ifdef CONFIG_SMP
