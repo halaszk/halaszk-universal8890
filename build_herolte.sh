@@ -3,7 +3,7 @@
 
 export MODEL=hero2lte
 export ARCH=arm64
-export BUILD_CROSS_COMPILE=../Toolchain/aarch64-sabermod-7.0/bin/aarch64-
+export BUILD_CROSS_COMPILE=/home/halaszk/KERNEL/aarch64-sabermod-7.0/bin/aarch64-
 export BUILD_JOB_NUMBER=`grep processor /proc/cpuinfo|wc -l`
 
 RDIR=$(pwd)
@@ -18,9 +18,9 @@ DTB_PADDING=0
 
 if [ $MODEL = herolte ]
 then
-	KERNEL_DEFCONFIG=SuperKernel-herolte_defconfig
+	KERNEL_DEFCONFIG=halaszk-herolte_defconfig
 else [ $MODEL = hero2lte ]
-	KERNEL_DEFCONFIG=SuperKernel-hero2lte_defconfig
+	KERNEL_DEFCONFIG=halaszk-hero2lte_defconfig
 fi
 
 FUNC_CLEAN_DTB()
@@ -144,6 +144,18 @@ FUNC_BUILD_RAMDISK()
 	esac
 }
 
+FUNC_BUILD_ZIP()
+{
+	echo "Processing ZIP file..."
+	cd $RDIR
+	GETVER=`grep 'halaszk-universal8890-*V' .config | sed 's/.*".//g' | sed 's/-S.*//g'`
+	cd $RDIR/ramdisk/SM-G935F
+	cp $RDIR/ramdisk/SM-G935F/image-new.img /$RDIR/READY/boot.img
+	cd $RDIR/READY/
+	zip -r Kernel_${GETVER}-`date +"[%H-%M]-[%d-%m]-SM-G935F-PWR-CORE"`.zip .
+	cp $RDIR/.config $RDIR/arch/arm64/configs/$KERNEL_DEFCONFIG
+	
+}
 # MAIN FUNCTION
 rm -rf ./build.log
 (
@@ -151,9 +163,10 @@ rm -rf ./build.log
 
 	FUNC_BUILD_KERNEL
 	FUNC_BUILD_RAMDISK
+	FUNC_BUILD_ZIP
 
     END_TIME=`date +%s`
 	
     let "ELAPSED_TIME=$END_TIME-$START_TIME"
-    echo "Total compile time was $ELAPSED_TIME seconds"
+    echo "Total compile time is $ELAPSED_TIME seconds"
 ) 2>&1	 | tee -a ./build.log

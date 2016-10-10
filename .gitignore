@@ -99,3 +99,9 @@ x509.genkey
 
 # Kconfig presets
 all.config
+
+/READY/
+#/ramdisk/
+/ramdisk/SM-G935F/image-new.img
+/ramdisk/SM-G935F/split_img/boot.img-dtb
+/ramdisk/SM-G935F/split_img/boot.img-zImage
